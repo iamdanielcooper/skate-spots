@@ -3,9 +3,10 @@ import './App.css';
 import { MapContainer, TileLayer, useMap, useMapEvents } from 'react-leaflet';
 import { Marker } from 'react-leaflet';
 import L from 'leaflet';
-import { Modal } from './components';
+import { Modal, AddSpot, ViewSpot } from './components';
 
 import 'leaflet/dist/leaflet.css';
+import Header from './components/Header';
 
 function App() {
     const [usersLocation, setUsersLocation] = useState([51.505, -0.09]);
@@ -13,6 +14,8 @@ function App() {
         [51.505, -0.09],
         [51, -0.091],
     ]);
+    const [modalChild, setModalChild] = useState(null);
+    const [zoomLevel, setZoomLevel] = useState();
 
     useEffect(() => {
         navigator.geolocation.getCurrentPosition(position => {
@@ -21,7 +24,6 @@ function App() {
                 position.coords.longitude,
             ]);
         });
-        console.log('hi');
     }, []);
 
     const [modalShown, setModalShown] = useState(false);
@@ -36,25 +38,34 @@ function App() {
         shadowUrl: null,
         shadowSize: null,
         shadowAnchor: null,
-        iconSize: new L.Point(60, 60),
+        iconSize: new L.Point(zoomLevel * 2, zoomLevel * 2),
         className: 'leaflet-div-icon',
     });
 
     const MapEvents = () => {
         useMapEvents({
             click(e) {
+                setUsersLocation([e.latlng.lat, e.latlng.lng]);
+                setModalShown(!modalShown);
+                setModalChild(<AddSpot />);
+
                 setMarkers(prevState => {
                     const newState = prevState.slice();
                     newState.push([e.latlng.lat, e.latlng.lng]);
+
                     return newState;
                 });
             },
+            zoom(e) {
+                console.log(e.target.getZoom());
+                setZoomLevel(e.target.getZoom());
+            },
         });
+
         return false;
     };
 
     function ChangeView({ center }) {
-        console.log('hi');
         const map = useMap();
         map.setView(center, 17);
         return null;
@@ -62,17 +73,20 @@ function App() {
 
     return (
         <>
+            <Header />
             <MapContainer
                 center={usersLocation}
                 // zoom={17}
                 scrollWheelZoom={true}
                 style={{ height: '100vh' }}
+                markerZoomAnimation={true}
                 // renderer={true}
             >
                 <ChangeView center={usersLocation} />
                 <TileLayer
-                    attribution='&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors'
-                    url='https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png'
+                    attribution='&copy; Map tiles by <a href="http://stamen.com">Stamen Design</a>, under <a href="http://creativecommons.org/licenses/by/3.0">CC BY 3.0</a>. Data by <a href="http://openstreetmap.org">OpenStreetMap</a>, under <a href="http://www.openstreetmap.org/copyright">ODbL</a>.'
+                    url='https://stamen-tiles.a.ssl.fastly.net/toner/{z}/{x}/{y}.png'
+                    // url='http://a.basemaps.cartocdn.com/light_nolabels/{z}/{x}/{y}.png'
                 />
 
                 {markers &&
@@ -84,7 +98,11 @@ function App() {
                                 eventHandlers={{
                                     click: e => {
                                         setModalShown(!modalShown);
-                                        console.log('marker clicked', e);
+                                        setUsersLocation([
+                                            e.latlng.lat,
+                                            e.latlng.lng,
+                                        ]);
+                                        setModalChild(<ViewSpot />);
                                     },
                                 }}
                             ></Marker>
@@ -93,7 +111,9 @@ function App() {
 
                 <MapEvents />
             </MapContainer>
-            <Modal shown={modalShown} closeModal={() => setModalShown(false)} />
+            <Modal shown={modalShown} closeModal={() => setModalShown(false)}>
+                {modalChild}
+            </Modal>
         </>
     );
 }

@@ -1,9 +1,11 @@
 import React from 'react';
 
-const Modal = ({ shown, closeModal }) => {
+const Modal = ({ shown, closeModal, children }) => {
     const style = {
-        display: shown ? 'block' : 'none',
-        background: 'pink',
+        display: shown ? 'flex' : 'none',
+        alignItems: 'center',
+        justifyContent: 'center',
+        background: 'rgba(0,0,0,.8)',
         height: '100vh',
         width: '100vw',
         position: 'absolute',
@@ -14,7 +16,10 @@ const Modal = ({ shown, closeModal }) => {
 
     return (
         <div style={style}>
-            <button onClick={closeModal}>Close</button>
+            <div>
+                {children}
+                <button onClick={closeModal}>Close</button>
+            </div>
         </div>
     );
 };
