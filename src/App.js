@@ -15,7 +15,7 @@ function App() {
         [51, -0.091],
     ]);
     const [modalChild, setModalChild] = useState(null);
-    const [zoomLevel, setZoomLevel] = useState();
+    const [zoomLevel, setZoomLevel] = useState(5);
 
     useEffect(() => {
         navigator.geolocation.getCurrentPosition(position => {
@@ -27,20 +27,39 @@ function App() {
     }, []);
 
     const [modalShown, setModalShown] = useState(false);
+    const [icon, setIcon] = useState(
+        new L.Icon({
+            iconUrl:
+                'https://e7.pngegg.com/pngimages/760/674/png-clipart-skateboard-free-computer-icons-skateboarding-skateboard-sports-skateboard.png',
+            iconRetinaUrl:
+                'https://e7.pngegg.com/pngimages/760/674/png-clipart-skateboard-free-computer-icons-skateboarding-skateboard-sports-skateboard.png',
+            iconAnchor: null,
+            popupAnchor: null,
+            shadowUrl: null,
+            shadowSize: null,
+            shadowAnchor: null,
+            iconSize: new L.Point(zoomLevel * 20, zoomLevel * 20),
+            className: 'leaflet-div-icon',
+        })
+    );
 
-    const icon = new L.Icon({
-        iconUrl:
-            'https://e7.pngegg.com/pngimages/760/674/png-clipart-skateboard-free-computer-icons-skateboarding-skateboard-sports-skateboard.png',
-        iconRetinaUrl:
-            'https://e7.pngegg.com/pngimages/760/674/png-clipart-skateboard-free-computer-icons-skateboarding-skateboard-sports-skateboard.png',
-        iconAnchor: null,
-        popupAnchor: null,
-        shadowUrl: null,
-        shadowSize: null,
-        shadowAnchor: null,
-        iconSize: new L.Point(zoomLevel * 2, zoomLevel * 2),
-        className: 'leaflet-div-icon',
-    });
+    useEffect(() => {
+        setIcon(
+            new L.Icon({
+                iconUrl:
+                    'https://e7.pngegg.com/pngimages/760/674/png-clipart-skateboard-free-computer-icons-skateboarding-skateboard-sports-skateboard.png',
+                iconRetinaUrl:
+                    'https://e7.pngegg.com/pngimages/760/674/png-clipart-skateboard-free-computer-icons-skateboarding-skateboard-sports-skateboard.png',
+                iconAnchor: null,
+                popupAnchor: null,
+                shadowUrl: null,
+                shadowSize: null,
+                shadowAnchor: null,
+                iconSize: new L.Point(60 - zoomLevel * 2, 60 - zoomLevel * 2),
+                className: 'leaflet-div-icon',
+            })
+        );
+    }, [zoomLevel]);
 
     const MapEvents = () => {
         useMapEvents({
@@ -67,7 +86,7 @@ function App() {
 
     function ChangeView({ center }) {
         const map = useMap();
-        map.setView(center, 17);
+        map.setView(center, zoomLevel);
         return null;
     }
 
