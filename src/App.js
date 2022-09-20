@@ -4,6 +4,7 @@ import { MapContainer, TileLayer, useMap, useMapEvents } from 'react-leaflet';
 import { Marker } from 'react-leaflet';
 import L from 'leaflet';
 import { Modal, AddSpot, ViewSpot } from './components';
+import testData from './spotData.json';
 
 import 'leaflet/dist/leaflet.css';
 import Header from './components/Header';
@@ -64,7 +65,6 @@ function App() {
     const MapEvents = () => {
         useMapEvents({
             click(e) {
-                setUsersLocation([e.latlng.lat, e.latlng.lng]);
                 setModalShown(!modalShown);
                 setModalChild(<AddSpot />);
 
@@ -76,7 +76,6 @@ function App() {
                 });
             },
             zoom(e) {
-                console.log(e.target.getZoom());
                 setZoomLevel(e.target.getZoom());
             },
         });
@@ -84,44 +83,50 @@ function App() {
         return false;
     };
 
-    function ChangeView({ center }) {
-        const map = useMap();
-        map.setView(center, zoomLevel);
-        return null;
-    }
+    // function ChangeView({ center }) {
+    //     const map = useMap();
+    //     map.setView(center, zoomLevel);
+    //     return null;
+    // }
 
     return (
         <>
             <Header />
             <MapContainer
                 center={usersLocation}
-                // zoom={17}
+                zoom={17}
                 scrollWheelZoom={true}
                 style={{ height: '100vh' }}
                 markerZoomAnimation={true}
                 // renderer={true}
             >
-                <ChangeView center={usersLocation} />
+                {/* <ChangeView center={usersLocation} /> */}
                 <TileLayer
                     attribution='&copy; Map tiles by <a href="http://stamen.com">Stamen Design</a>, under <a href="http://creativecommons.org/licenses/by/3.0">CC BY 3.0</a>. Data by <a href="http://openstreetmap.org">OpenStreetMap</a>, under <a href="http://www.openstreetmap.org/copyright">ODbL</a>.'
                     url='https://stamen-tiles.a.ssl.fastly.net/toner/{z}/{x}/{y}.png'
                     // url='http://a.basemaps.cartocdn.com/light_nolabels/{z}/{x}/{y}.png'
                 />
 
-                {markers &&
-                    markers.map(marker => {
+                {testData &&
+                    testData.map((marker, index) => {
                         return (
                             <Marker
-                                position={marker}
+                                key={index}
+                                position={[
+                                    marker.location.lat,
+                                    marker.location.lng,
+                                ]}
                                 icon={icon}
                                 eventHandlers={{
                                     click: e => {
                                         setModalShown(!modalShown);
-                                        setUsersLocation([
-                                            e.latlng.lat,
-                                            e.latlng.lng,
-                                        ]);
-                                        setModalChild(<ViewSpot />);
+                                        // setUsersLocation([
+                                        //     e.latlng.lat,
+                                        //     e.latlng.lng,
+                                        // ]);
+                                        setModalChild(
+                                            <ViewSpot spotData={marker} />
+                                        );
                                     },
                                 }}
                             ></Marker>
