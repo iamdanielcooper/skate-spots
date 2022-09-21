@@ -11,10 +11,7 @@ import Header from './components/Header';
 
 function App() {
     const [usersLocation, setUsersLocation] = useState([51.505, -0.09]);
-    const [markers, setMarkers] = useState([
-        [51.505, -0.09],
-        [51, -0.091],
-    ]);
+    const [spotData, setSpotData] = useState(testData);
     const [modalChild, setModalChild] = useState(null);
     const [zoomLevel, setZoomLevel] = useState(5);
 
@@ -66,14 +63,12 @@ function App() {
         useMapEvents({
             click(e) {
                 setModalShown(!modalShown);
-                setModalChild(<AddSpot />);
-
-                setMarkers(prevState => {
-                    const newState = prevState.slice();
-                    newState.push([e.latlng.lat, e.latlng.lng]);
-
-                    return newState;
-                });
+                setModalChild(
+                    <AddSpot
+                        setSpotData={setSpotData}
+                        location={[e.latlng.lat, e.latlng.lng]}
+                    />
+                );
             },
             zoom(e) {
                 setZoomLevel(e.target.getZoom());
@@ -82,12 +77,6 @@ function App() {
 
         return false;
     };
-
-    // function ChangeView({ center }) {
-    //     const map = useMap();
-    //     map.setView(center, zoomLevel);
-    //     return null;
-    // }
 
     return (
         <>
@@ -98,17 +87,16 @@ function App() {
                 scrollWheelZoom={true}
                 style={{ height: '100vh' }}
                 markerZoomAnimation={true}
-                // renderer={true}
+                zoomAnimation={true}
             >
-                {/* <ChangeView center={usersLocation} /> */}
                 <TileLayer
                     attribution='&copy; Map tiles by <a href="http://stamen.com">Stamen Design</a>, under <a href="http://creativecommons.org/licenses/by/3.0">CC BY 3.0</a>. Data by <a href="http://openstreetmap.org">OpenStreetMap</a>, under <a href="http://www.openstreetmap.org/copyright">ODbL</a>.'
                     url='https://stamen-tiles.a.ssl.fastly.net/toner/{z}/{x}/{y}.png'
                     // url='http://a.basemaps.cartocdn.com/light_nolabels/{z}/{x}/{y}.png'
                 />
 
-                {testData &&
-                    testData.map((marker, index) => {
+                {spotData &&
+                    spotData.map((marker, index) => {
                         return (
                             <Marker
                                 key={index}
@@ -120,10 +108,6 @@ function App() {
                                 eventHandlers={{
                                     click: e => {
                                         setModalShown(!modalShown);
-                                        // setUsersLocation([
-                                        //     e.latlng.lat,
-                                        //     e.latlng.lng,
-                                        // ]);
                                         setModalChild(
                                             <ViewSpot spotData={marker} />
                                         );
