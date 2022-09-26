@@ -1,6 +1,7 @@
 import React, { useState } from 'react';
+import styles from './style.module.css';
 
-const AddSpot = ({ setSpotData, location }) => {
+const AddSpot = ({ setSpotData, location, closeModal }) => {
     const [spotName, setSpotName] = useState('');
     const [creator, setCreator] = useState('');
     const [image, setImage] = useState('');
@@ -23,7 +24,7 @@ const AddSpot = ({ setSpotData, location }) => {
                 image: 'google.com',
                 created: {
                     creator: e.target.spotCreator.value,
-                    created: '2022-09-01: 10:40:01',
+                    created: new Date().toLocaleString(),
                 },
                 spotHistory: [],
             };
@@ -31,10 +32,11 @@ const AddSpot = ({ setSpotData, location }) => {
             newState.push(newSpot);
             return newState;
         });
+        closeModal();
     };
 
     return (
-        <div>
+        <div className={styles.container}>
             <form onSubmit={handleSubmit}>
                 <input
                     id='spotName'

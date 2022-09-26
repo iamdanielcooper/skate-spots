@@ -28,9 +28,9 @@ function App() {
     const [icon, setIcon] = useState(
         new L.Icon({
             iconUrl:
-                'https://e7.pngegg.com/pngimages/760/674/png-clipart-skateboard-free-computer-icons-skateboarding-skateboard-sports-skateboard.png',
+                'https://www.blacksheepstore.co.uk/media/catalog/product/cache/1/small_image/700x/9df78eab33525d08d6e5fb8d27136e95/b/d/bd7dffe8351bce8e0f66f8fd45c1cfec.jpg',
             iconRetinaUrl:
-                'https://e7.pngegg.com/pngimages/760/674/png-clipart-skateboard-free-computer-icons-skateboarding-skateboard-sports-skateboard.png',
+                'https://www.blacksheepstore.co.uk/media/catalog/product/cache/1/small_image/700x/9df78eab33525d08d6e5fb8d27136e95/b/d/bd7dffe8351bce8e0f66f8fd45c1cfec.jpg',
             iconAnchor: null,
             popupAnchor: null,
             shadowUrl: null,

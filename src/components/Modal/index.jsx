@@ -1,4 +1,5 @@
 import React from 'react';
+import styles from './style.module.css';
 
 const Modal = ({ shown, closeModal, children }) => {
     const style = {
@@ -14,11 +15,22 @@ const Modal = ({ shown, closeModal, children }) => {
         zIndex: 1000000,
     };
 
+    const childrenWithProps = React.Children.map(children, child => {
+        // Checking isValidElement is the safe way and avoids a
+        // typescript error too.
+        if (React.isValidElement(child)) {
+            return React.cloneElement(child, { ...child.props, closeModal });
+        }
+        return child;
+    });
+
     return (
         <div style={style}>
             <div>
-                {children}
-                <button onClick={closeModal}>Close</button>
+                {childrenWithProps}
+                <button className={styles.close} onClick={closeModal}>
+                    X
+                </button>
             </div>
         </div>
     );
