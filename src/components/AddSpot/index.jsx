@@ -21,7 +21,7 @@ const AddSpot = ({ setSpotData, location, closeModal }) => {
                 id: newState.length + 1,
                 name: e.target.spotName.value,
                 location: { lat: location[0], lng: location[1] },
-                image: 'google.com',
+                image: image,
                 created: {
                     creator: e.target.spotCreator.value,
                     created: new Date().toLocaleString(),
@@ -32,7 +32,14 @@ const AddSpot = ({ setSpotData, location, closeModal }) => {
             newState.push(newSpot);
             return newState;
         });
+        clearSpotFormData();
         closeModal();
+    };
+
+    const clearSpotFormData = () => {
+        setSpotName('');
+        setCreator('');
+        setImage('');
     };
 
     return (
@@ -43,16 +50,17 @@ const AddSpot = ({ setSpotData, location, closeModal }) => {
                     onChange={e => updateFormValues(e, setSpotName)}
                     placeholder='Name'
                     value={spotName}
+                    required
                 />
                 <input
                     id='spotCreator'
                     onChange={e => updateFormValues(e, setCreator)}
                     placeholder='Who are you?'
                     value={creator}
+                    required
                 />
                 <input
                     type='file'
-                    value={image}
                     onChange={e => setImage(e.target.files[0])}
                 />
                 <button>Update</button>
