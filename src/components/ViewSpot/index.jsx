@@ -1,8 +1,9 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, useRef } from 'react';
 import styles from './style.module.css';
 
 const ViewSpot = ({ spotData }) => {
     const [image, setImage] = useState('');
+    const hitSpotSection = useRef(null);
 
     useEffect(() => {
         var reader = new FileReader();
@@ -27,6 +28,12 @@ const ViewSpot = ({ spotData }) => {
             </p>
             <p>{spotData.created.created}</p>
             <section>
+                <button onClick={() => (hitSpotSection.current.hidden = false)}>
+                    Hit the spot
+                </button>
+                <section ref={hitSpotSection} hidden>
+                    <h1>Hit the spot.</h1>
+                </section>
                 {spotData.spotHistory.map(spot => (
                     <>
                         <p>{spot.name}</p>
