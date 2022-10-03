@@ -19,6 +19,10 @@ const ViewSpot = ({ spotData }) => {
         }
     }, [spotData.image]);
 
+    const displaySpotDate = date => {
+        return date.split(', ')[0];
+    };
+
     return (
         <div className={styles.container}>
             <img className={styles.spotImage} alt='The spot' src={image} />
@@ -26,7 +30,7 @@ const ViewSpot = ({ spotData }) => {
             <p className={styles.spotCreator}>
                 Created by {spotData.created.creator}
             </p>
-            <p>{spotData.created.created}</p>
+            <p>{displaySpotDate(spotData.created.created)}</p>
             <section>
                 <button onClick={() => (hitSpotSection.current.hidden = false)}>
                     Hit the spot
