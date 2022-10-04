@@ -25,7 +25,12 @@ const ViewSpot = ({ spotData }) => {
 
     return (
         <div className={styles.container}>
-            <img className={styles.spotImage} alt='The spot' src={image} />
+            {/* <img className={styles.spotImage} alt='The spot' src={image} /> */}
+            <video width='320' height='240' controls>
+                <source src='movie.mp4' type='video/mp4' />
+                <source src='movie.ogg' type='video/ogg' />
+                Your browser does not support the video tag.
+            </video>
             <h1 className={styles.spotTitle}>{spotData.name}</h1>
             <p className={styles.spotCreator}>
                 Created by {spotData.created.creator}
