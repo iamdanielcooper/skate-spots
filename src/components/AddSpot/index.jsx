@@ -4,7 +4,7 @@ import styles from './style.module.css';
 const AddSpot = ({ setSpotData, location, closeModal }) => {
     const [spotName, setSpotName] = useState('');
     const [creator, setCreator] = useState('');
-    const [image, setImage] = useState('');
+    const [video, setVideo] = useState('');
 
     const updateFormValues = (e, setter) => {
         e.preventDefault();
@@ -21,12 +21,11 @@ const AddSpot = ({ setSpotData, location, closeModal }) => {
                 id: newState.length + 1,
                 name: e.target.spotName.value,
                 location: { lat: location[0], lng: location[1] },
-                image: image,
+                video: video,
                 created: {
                     creator: e.target.spotCreator.value,
                     created: new Date().toLocaleString(),
                 },
-                spotHistory: [],
             };
 
             newState.push(newSpot);
@@ -39,7 +38,7 @@ const AddSpot = ({ setSpotData, location, closeModal }) => {
     const clearSpotFormData = () => {
         setSpotName('');
         setCreator('');
-        setImage('');
+        setVideo('');
     };
 
     return (
@@ -61,7 +60,7 @@ const AddSpot = ({ setSpotData, location, closeModal }) => {
                 />
                 <input
                     type='file'
-                    onChange={e => setImage(e.target.files[0])}
+                    onChange={e => setVideo(e.target.files[0])}
                 />
                 <button>Update</button>
             </form>

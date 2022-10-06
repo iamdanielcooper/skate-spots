@@ -18,7 +18,7 @@ const ViewSpot = ({ spotData }) => {
                 playsinline
             >
                 <source
-                    src={URL.createObjectURL(spotData.image)}
+                    src={URL.createObjectURL(spotData.video)}
                     type='video/mp4'
                 />
                 Your browser does not support the video tag.
@@ -35,12 +35,6 @@ const ViewSpot = ({ spotData }) => {
                 <section ref={hitSpotSection} hidden>
                     <h1>Hit the spot.</h1>
                 </section>
-                {spotData.spotHistory.map(spot => (
-                    <>
-                        <p>{spot.name}</p>
-                        <p>{spot.date}</p>
-                    </>
-                ))}
             </section>
         </div>
     );
