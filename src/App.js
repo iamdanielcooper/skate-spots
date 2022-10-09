@@ -5,6 +5,7 @@ import { Marker } from 'react-leaflet';
 import L from 'leaflet';
 import { Modal, AddSpot, ViewSpot } from './components';
 import testData from './spotData.json';
+import styles from './style.module.css';
 
 import 'leaflet/dist/leaflet.css';
 import Header from './components/Header';
@@ -45,9 +46,9 @@ function App() {
         setIcon(
             new L.Icon({
                 iconUrl:
-                    'https://e7.pngegg.com/pngimages/760/674/png-clipart-skateboard-free-computer-icons-skateboarding-skateboard-sports-skateboard.png',
+                    'https://www.blacksheepstore.co.uk/media/catalog/product/cache/1/small_image/700x/9df78eab33525d08d6e5fb8d27136e95/b/d/bd7dffe8351bce8e0f66f8fd45c1cfec.jpg',
                 iconRetinaUrl:
-                    'https://e7.pngegg.com/pngimages/760/674/png-clipart-skateboard-free-computer-icons-skateboarding-skateboard-sports-skateboard.png',
+                    'https://www.blacksheepstore.co.uk/media/catalog/product/cache/1/small_image/700x/9df78eab33525d08d6e5fb8d27136e95/b/d/bd7dffe8351bce8e0f66f8fd45c1cfec.jpg',
                 iconAnchor: null,
                 popupAnchor: null,
                 shadowUrl: null,
@@ -85,7 +86,8 @@ function App() {
                 center={usersLocation}
                 zoom={17}
                 scrollWheelZoom={true}
-                style={{ height: '-webkit-fill-available' }}
+                className={styles.mapContainer}
+                // style={{ minHeight: '-webkit-fill-available' }}
                 markerZoomAnimation={true}
                 zoomAnimation={true}
             >

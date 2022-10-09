@@ -1,4 +1,4 @@
-import React, { useState, useEffect, useRef } from 'react';
+import React, { useRef } from 'react';
 import styles from './style.module.css';
 
 const ViewSpot = ({ spotData }) => {
@@ -6,6 +6,10 @@ const ViewSpot = ({ spotData }) => {
 
     const displaySpotDate = date => {
         return date.split(', ')[0];
+    };
+
+    const getVideoUrl = file => {
+        return URL.createObjectURL(file);
     };
 
     return (
@@ -18,10 +22,7 @@ const ViewSpot = ({ spotData }) => {
                 playsinline
                 muted={true}
             >
-                <source
-                    src={URL.createObjectURL(spotData.video)}
-                    type='video/mp4'
-                />
+                <source src={getVideoUrl(spotData.video)} type='video/mp4' />
                 Your browser does not support the video tag.
             </video>
             <h1 className={styles.spotTitle}>{spotData.name}</h1>

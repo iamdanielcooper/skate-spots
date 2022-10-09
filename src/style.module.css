@@ -1,0 +1,9 @@
+.mapContainer {
+    height: 100vh;
+}
+
+@media only screen and (max-width: 600px) {
+    .mapContainer {
+        min-height: -webkit-fill-available;
+    }
+}
