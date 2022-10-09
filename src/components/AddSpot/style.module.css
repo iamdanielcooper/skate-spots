@@ -1,12 +1,58 @@
 .container {
     background-color: white;
     height: 80vh;
-    width: 400px;
-
+    width: 100%;
     padding: 10px;
+
+    margin: auto;
+
+    border-radius: 15px;
 }
 
 .container form {
     display: flex;
     flex-direction: column;
+}
+
+.container form input {
+    font-size: 10px;
+    height: 35px;
+    width: 80%;
+    margin: 10px auto;
+}
+
+.container form input[type='file'] {
+    visibility: hidden;
+}
+
+.uploadLabel {
+    width: 80%;
+    height: 35px;
+
+    margin: 10px auto;
+    background-color: rgb(222, 221, 221);
+
+    padding: auto 10px;
+
+    text-align: center;
+}
+
+.container button {
+    height: 60px;
+    width: 100%;
+
+    background-color: black;
+    color: white;
+
+    font-size: 15px;
+    text-decoration: none;
+
+    border-radius: 15px;
+}
+
+@media only screen and (max-width: 600px) {
+    .container {
+        width: 90%;
+        height: 100%;
+    }
 }

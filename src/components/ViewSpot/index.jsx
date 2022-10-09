@@ -16,6 +16,7 @@ const ViewSpot = ({ spotData }) => {
                 loop
                 webkit-playsinline
                 playsinline
+                muted={true}
             >
                 <source
                     src={URL.createObjectURL(spotData.video)}

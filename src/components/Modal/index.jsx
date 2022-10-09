@@ -7,7 +7,7 @@ const Modal = ({ shown, closeModal, children }) => {
         alignItems: 'center',
         justifyContent: 'center',
         background: 'rgba(0,0,0,.8)',
-        height: '100vh',
+        height: '-webkit-fill-available',
         width: '100vw',
         position: 'absolute',
         top: 0,

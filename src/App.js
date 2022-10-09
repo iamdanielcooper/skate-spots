@@ -79,13 +79,13 @@ function App() {
     };
 
     return (
-        <>
+        <main>
             <Header />
             <MapContainer
                 center={usersLocation}
                 zoom={17}
                 scrollWheelZoom={true}
-                style={{ height: '100vh' }}
+                style={{ height: '-webkit-fill-available' }}
                 markerZoomAnimation={true}
                 zoomAnimation={true}
             >
@@ -122,7 +122,7 @@ function App() {
             <Modal shown={modalShown} closeModal={() => setModalShown(false)}>
                 {modalChild}
             </Modal>
-        </>
+        </main>
     );
 }
 

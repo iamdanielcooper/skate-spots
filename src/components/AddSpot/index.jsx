@@ -58,10 +58,14 @@ const AddSpot = ({ setSpotData, location, closeModal }) => {
                     value={creator}
                     required
                 />
-                <input
-                    type='file'
-                    onChange={e => setVideo(e.target.files[0])}
-                />
+                <label className={styles.uploadLabel}>
+                    Uplodad Video
+                    <input
+                        type='file'
+                        onChange={e => setVideo(e.target.files[0])}
+                    />
+                </label>
+
                 <button>Update</button>
             </form>
         </div>
