@@ -60,6 +60,12 @@ function App() {
         );
     }, [zoomLevel]);
 
+    useEffect(() => {
+        if (!modalShown) {
+            setModalChild(null);
+        }
+    }, [modalShown]);
+
     const MapEvents = () => {
         useMapEvents({
             click(e) {
@@ -87,7 +93,6 @@ function App() {
                 zoom={17}
                 scrollWheelZoom={true}
                 className={styles.mapContainer}
-                // style={{ minHeight: '-webkit-fill-available' }}
                 markerZoomAnimation={true}
                 zoomAnimation={true}
             >
